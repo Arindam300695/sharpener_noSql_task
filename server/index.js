@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { connect } = require("./db/db");
 const productRouter = require("./routes/productRoute");
+const userRouter = require("./routes/userRoute");
 
 // initializing the express app
 const app = express();
@@ -33,4 +34,7 @@ app.get("/", (req, res) => {
 });
 
 // using routes
+// product route
 app.use("/product", productRouter);
+// user route
+app.use("/user", userRouter);

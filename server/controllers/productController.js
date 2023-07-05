@@ -1,12 +1,21 @@
 const Product = require("../models/productModel");
+const mongodb = require("mongodb");
 
 // creating a new product and saving it to the database
 const addProductController = async (req, res) => {
     const { title, description, price, imageUrl } = req.body;
+    const { userId } = req.params;
     try {
-        if (!title || !description || !price || !imageUrl)
+        if (!title || !description || !price || !imageUrl || !userId)
             return res.json({ error: "all the fields are required" });
-        const product = new Product(title, description, price, imageUrl);
+        const product = new Product(
+            title,
+            description,
+            price,
+            imageUrl,
+            null,
+            new mongodb.ObjectId(userId)
+        );
         const result = await product.save();
         return res.send({
             message: "product added to the datbase successfully",
