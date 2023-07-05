@@ -8,7 +8,6 @@ const addProductController = async (req, res) => {
             return res.json({ error: "all the fields are required" });
         const product = new Product(title, description, price, imageUrl);
         const result = await product.save();
-        console.log(result);
         return res.send({
             message: "product added to the datbase successfully",
             result,
@@ -31,10 +30,8 @@ const fetchAllProductsController = async (req, res) => {
 // fetching single product based on product id
 const fetchSingleProductController = async (req, res) => {
     const { _id } = req.params;
-    console.log(_id);
     try {
         const singleProduct = await Product.findById(_id);
-        console.log(singleProduct);
         return res.json(singleProduct);
     } catch (error) {
         return res.json({ error: error.message });
@@ -45,13 +42,11 @@ const fetchSingleProductController = async (req, res) => {
 const updateProductController = async (req, res) => {
     const { title, description, price, imageUrl } = req.body;
     const { id } = req.params;
-    console.log(id);
     try {
         if (!title || !description || !price || !imageUrl)
             return res.json({ error: "all the fields are required" });
         const product = new Product(title, description, price, imageUrl, id);
         const result = await product.save();
-        console.log(result);
         return res.send({
             message: "product updated successfully",
             result,
